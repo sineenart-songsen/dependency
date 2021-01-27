@@ -1,27 +1,27 @@
 <template>
 <div class="container">
     <div class="calculator">
-        <div class="answer"> </div>
+        <div class="answer">{{ answer }} </div>
         <div class="display">{{ logList+current }}</div>
-        <div id="clear" class="clear">Clear</div>
+        <div id="clear" @click="clear()"  class="clear">Clear</div>
         <div id="divide" @click="addLog('/')" class="btn operator">
             /
         </div>
         <div id="n7" @click="append(7)" class="btn">7</div>
-        <div id="n8" @click="append(8)" class="btn">8</div>
-        <div id="n9" @click="append(9)" class="btn">9</div>
-        <div id="divide" @click="addLog('*')" class="btn operator">
-        <div id="n4" @click="append(4)" class="btn">4</div>
-        <div id="n5" @click="append(5)" class="btn">5</div>
-        <div id="n6" @click="append(6)" class="btn">6</div>
-        <div id="divide" @click="addLog('-')" class="btn operator">
-        <div id="n1" @click="append(1)" class="btn">1</div>
-        <div id="n2" @click="append(2)" class="btn">2</div>
-        <div id="n3" @click="append(3)" class="btn">3</div>
-        <div id="divide" @click="addLog('+')" class="btn operator">
-        <div id="n0" @click="append(0)" class="btn">0</div>
-        <div id="divide" @click="addLog('**')" class="btn operator">
-        <div id="equal" class="btn operator">=</div>
+        <div id="n8" @click="append(8)"  class="btn">8</div>
+        <div id="n9" @click="append(9)"  class="btn">9</div>
+        <div id="times" @click="addLog('*')" class="btn operator">*</div>
+        <div id="n4" @click="append(4)"  class="btn">4</div>
+        <div id="n5" @click="append(5)"  class="btn">5</div>
+        <div id="n6" @click="append(6)"  class="btn">6</div>
+        <div id="minus" @click="addLog('-')" class="btn operator">-</div>
+        <div id="n1" @click="append(1)"  class="btn">1</div>
+        <div id="n2" @click="append(2)"  class="btn">2</div>
+        <div id="n3" @click="append(3)"  class="btn">3</div>
+        <div id="plus" @click="addLog('+')" class="btn operator">+</div>
+        <div id="n0" @click="append(0)"  class="zero">0</div>
+        <div id="power" @click="addLog('**')" class="btn operator">**</div>
+        <div id="equal" @click="equal()" class="btn operator">=</div>
     </div>
 </div>
 </template>
@@ -43,26 +43,32 @@ export default {
                 this.current=""
                 this.operatorClicked=false
             }
-
             this.current=`${this.current}${number}`
             console.log(number)
         },
         addLog(operator){
             if(this.operatorClicked==false){
-                this.current+=`${this.current}${operator}`
+                this.logList += `${this.current}${operator}`
                 this.current=""
                 this.operatorClicked=true
             }
             console.log(operator)
         },
         clear(){
-
+            this.logList= ""
+            this.current= ""
+            this.answer=""
+            this.operatorClicked= true
         },
         equal(){
-
+            if(this.operatorClicked==false){
+                this.answer = eval(this.logList + this.current);
+            }
+            else{
+                this.answer = "WHAT?!!"
+            }
         },
     },
-
 }
 </script>
 
